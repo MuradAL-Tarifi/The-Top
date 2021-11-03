@@ -1,0 +1,428 @@
+﻿@model TheTop.Models.ViewModel.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Customer.cshtml";
+}
+<!-- Start Header Area -->
+<header class="header navbar-area">
+    <!-- Start Header Middle -->
+    <div class="header-middle" style="padding:0;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-7">
+                    <!-- Start Header Logo -->
+                    <a class="navbar-brand" style="height:auto">
+                        <img src="~/Images/LogoWithName.png" alt="Logo">
+                    </a>
+                    <!-- End Header Logo -->
+                </div>
+                <div class="col-lg-6 col-md-3 col-7"
+                     id="navbarSupportedContent">
+                    <ul id="nav" class="navbar-nav ms-auto" style="flex-direction: row !important;">
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                               aria-label="Toggle navigation">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                               aria-label="Toggle navigation">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                               aria-label="Toggle navigation">Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-2 col-5 ">
+                    <div class="navbar-cart">
+                        <div class="wishlist">
+                            <a asp-action="PublicMessage">
+                                <i class="lni lni-facebook-messenger"></i>
+                            </a>
+                        </div>
+                        <div class="wishlist">
+                            <a asp-action="Favorite">
+                                <i class="lni lni-heart"></i>
+                                <span class="total-items">@Model.FavoriteProducts.Where(p => p.UserId == Model.Users.UserId).Count()</span>
+                            </a>
+                        </div>
+                        <div class="cart-items ">
+                            <a href="javascript:void(0)" class="main-btn">
+                                <i class="lni lni-cart"></i>
+                                <span class="total-items">@Model.CartItems.Count()</span>
+                            </a>
+                            <!-- Shopping Item -->
+                            <div class="shopping-item">
+                                <div class="dropdown-cart-header">
+                                    <span>@Model.CartItems.Count() Items</span>
+                                </div>
+                                <ul class="shopping-list">
+
+                                    @foreach (var item in Model.CartItems)
+                                    {
+
+
+                                        <li>
+                                            <a asp-action="RemoveFromCart" asp-route-id="@item.Id" class="remove" title="Remove this item">
+                                                <i class="lni lni-close"></i>
+                                            </a>
+                                            <div class="cart-img-head">
+                                                <a class="cart-img" >
+                                                    <img src="@item.Cartphoto" style="width: 100%;height: 100%;">
+                                                </a>
+                                            </div>
+
+                                            <div class="content">
+                                                <h4>
+                                                    <a >
+                                                        @item.CartName
+                                                    </a>
+                                                </h4>
+                                                <p class="quantity"><span class="amount">$@item.CartPrice</span></p>
+                                            </div>
+                                        </li>
+                                    }
+
+
+                                </ul>
+                                <div class="bottom">
+                                    <div class="total">
+                                        <span>Total</span>
+                                        <span class="total-amount">$@Model.CartItems.Select(m => m.CartPrice).Sum()</span>
+                                    </div>
+                                    <div class="button">
+                                        <a asp-action="Checkout" class="btn animate">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ End Shopping Item -->
+                        </div>
+
+                        <div class="cart-items ml-1">
+                            <a href="javascript:void(0)" class="main-btn">
+                                <i class="lni lni-alarm"></i>
+                                <span class="total-items">@Model.Notifications.Count()</span>
+                            </a>
+                            <!-- Shopping Item -->
+                            <div class="shopping-item" style="width: 470px">
+                                <div class="dropdown-cart-header">
+                                    <span>@Model.Notifications.Count() Items</span>
+                                </div>
+                                <ul class="shopping-list">
+
+                                    @foreach (var item in Model.Notifications)
+                                    {
+
+
+                                        <li>
+                                            <a asp-action="RemoveFromNotf" asp-route-id="@item.Id" class="remove" title="Remove this item">
+                                                <i class="lni lni-close"></i>
+                                            </a>
+                                            <div class="cart-img-head">
+                                                <a class="cart-img" >
+                                                    <img src="@item.Product.Photo" style="width: 100%;height: 100%;">
+                                                </a>
+                                            </div>
+
+                                            <div class="content" style="width: 90%">
+                                                <h4>
+                                                    <a >
+                                                        @item.Product.Name It has been successfully sold
+                                                    </a>
+                                                </h4>
+                                                <p class="quantity"><span class="amount">The intellectual property rights have been transferred to the buyer</span></p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+
+                            <!--/ End Shopping Item -->
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action" style="font-size: 19px;"><img src="@Model.Users.UserPhoto" class="avatar" style="height: 30px;width: 30px;border-radius: 50%;" alt="Avatar"> @Model.Users.UsarName </a>
+                            <div class="dropdown-menu">
+                                <a asp-action="MyAds" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                                <a asp-action="EditProfile" class="dropdown-item"><i class="fa fa-sliders"></i> Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-controller="Home" asp-action="Home" class="dropdown-item"><i class="material-icons"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Middle -->
+</header>
+<!-- End Header Area -->
+@if (Model.Coupons.Count() > 0)
+{
+    <div class="border row mt-25" style="margin-top:130px">
+        <div class="carousel" data-ride="carousel" data-interval="2500">
+            @for (int i = 0; i < Model.Coupons.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    <div class="carousel-item active">
+                        <img src="@Model.Coupons.ToList()[i].Picture" height="50px" class="d-block w-100" />
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item ">
+                        <img src="@Model.Coupons.ToList()[i].Picture" height="50px" class="d-block w-100" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
+<section class="hero-area overlay mt-100" style="height: 100vh; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-md-Model.Users.UserId col-Model.Users.UserId">
+                <div class="hero-text text-center">
+                    <!-- Start Hero Text -->
+                    <div class="section-heading">
+                        <h2 class="wow fadeInUp" data-wow-delay=".3s">
+                            Welcome to The Top
+                        </h2>
+                        <p class="wow fadeInUp" data-wow-delay=".5s">
+                            Buy And Sell Everything From Used Cars To Mobile Phones And
+                            <br />Computers.
+                        </p>
+                    </div>
+                    <!-- End Search Form -->
+                    <!-- Start Search Form -->
+                    <div class="search-form wow fadeInUp" data-wow-delay=".7s">
+                        <div class="row">
+                            <form class="row" method="post" asp-action="Index">
+                                <div class="col-lg-5 col-md-3 col-Model.Users.UserId p-0">
+                                    <div class="search-input">
+                                        <label for="category">
+                                            <i class="lni lni-grid-alt theme-color"></i>
+                                        </label>
+                                        <select name="Category" id="Category" style="box-shadow: 5px 10px #5830e0;">
+                                            <option value="0" selected disabled>
+                                                Categories Subject
+                                            </option>
+                                            @foreach (var item in Model.Categorys)
+                                            {
+                                                <option value="@item.CategoryId">@item.Category1</option>
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-3 col-Model.Users.UserId p-0">
+                                    <div class="search-input">
+                                        <input type="date" value="Expiry Date" name="Expire" id="Expire" style="padding: 0 10px;color: gray !important;" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-Model.Users.UserId p-0">
+                                    <div class="search-btn button">
+                                        <button class="btn" type="submit">
+                                            <i class="lni lni-search-alt"></i> Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <!-- End Search Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Hero Area -->
+<!-- Start Categories Area -->
+<section class="categories" id="categories">
+    <div class="container">
+        <div class="cat-inner">
+            <div class="row">
+                <div class="col-Model.Users.UserId p-0">
+                    <div class="category-slider">
+                        @foreach (var item in Model.Categorys)
+                        {
+                            <a class="single-cat">
+                                <div class="icon">
+                                    <img src="~/Images/@item.CategoryPhoto" alt="#" />
+                                </div>
+                                <h3>@item.Category1</h3>
+                                <h5 class="total">@item.Product.Select(m => m.CategoryId == item.CategoryId).Count()</h5>
+                            </a>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /End Categories Area -->
+<!-- Start Items Grid Area -->
+<section class="items-grid section custom-padding" id="Products">
+    <div class="container" style=" MAX-WIDTH: 1320px;">
+        <div class="row">
+            <div class="col-Model.Users.UserId">
+                <div class="section-title">
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Latest Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="single-head">
+            <div class="row">
+                @foreach (var item in Model.Products.Take(50).Where(m=>m.UserId!=Model.Users.UserId))
+                {
+                    <div class="col-lg-4 col-md-6 col-Model.Users.UserId">
+                        <!-- Start Single Grid -->
+                        <div class="single-grid wow fadeInUp" data-wow-delay=".2s">
+                            <div class="image">
+                                <a class="thumbnail">
+                                    <img src="@item.Photo" alt="#" style=" height: 416px"/>
+                                </a>
+                                <div class="author">
+                                    <div class="author-image">
+                                        <a href="javascript:void(0)">
+                                            <img src="@Html.DisplayFor(modelItem => item.User.UserPhoto)"
+                                                 alt="#" />
+                                            <span>
+                                                @Html.DisplayFor(modelItem => item.User.UsarName)
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <p class="sale">For Sale</p>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <div class="top-content">
+                                    <a href="javascript:void(0)" class="tag">@item.Category.Category1</a>
+                                    <h3>
+                                        <a >@item.Name</a>
+                                    </h3>
+                                    <p>@item.Description</p>
+                                    @if (Model.Rates.Where(m => m.ProductId == item.ProductId && m.UserId == Model.Users.UserId).FirstOrDefault() == null)
+                                    {
+                                        <span class="text-warning">
+                                            <i class="ratingStar far fa-star" data-value="1" onclick="rate(@item.ProductId,@Model.Users.UserId)"></i>
+                                            <i class="ratingStar far fa-star" data-value="2" onclick="rate(@item.ProductId,@Model.Users.UserId)"></i>
+                                            <i class="ratingStar far fa-star" data-value="3" onclick="rate(@item.ProductId,@Model.Users.UserId)"></i>
+                                            <i class="ratingStar far fa-star" data-value="4" onclick="rate(@item.ProductId,@Model.Users.UserId)"></i>
+                                            <i class="ratingStar far fa-star" data-value="5" onclick="rate(@item.ProductId,@Model.Users.UserId)"></i>
+                                            <input type="hidden" name="rating" id="rating" value="" />
+                                            <span style="color:black">@Model.Rates.Where(m => m.ProductId == item.ProductId).Select(m => m.Rating).Sum()</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        var x = 5 - Model.Rates.Where(m => m.ProductId == item.ProductId && m.UserId == Model.Users.UserId).FirstOrDefault().Rating;
+                                        var rate = Model.Rates.Where(m => m.ProductId == item.ProductId && m.UserId == Model.Users.UserId).FirstOrDefault().Rating;
+                                        <span class="text-warning">
+                                            @for (int i = 1; i <= rate; i++)
+                                            {
+                                                <i class=" fas fa-star"></i>
+
+                                            }
+                                            @for (int i = rate; i < 5; i++)
+                                            {
+                                                <i class=" far fa-star"></i>
+
+                                            }
+
+                                            <span style="color:black">@Model.Rates.Where(m => m.ProductId == item.ProductId).Select(m => m.Rating).Sum()</span>
+
+                                        </span>
+                                    }
+
+                                    <ul class="info-list">
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-map-marker"></i> @item.Location</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-timer"></i> @item.Expire.ToString("dd MMMM yyyy")</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bottom-content">
+                                    <p class="price">
+                                        Start From:
+                                        <span>$@item.Price</span>
+
+
+
+                                    </p>
+                                    @if (Model.FavoriteProducts.Where(p => p.ProductId == item.ProductId && p.UserId == Model.Users.UserId).FirstOrDefault() != null)
+                                    {
+                                        @if (item.FavoriteProduct.Where(p => p.ProductId == item.ProductId && p.UserId == Model.Users.UserId).FirstOrDefault().IsFavorite == true)
+                                        {
+                                            <a asp-action="RemoveFromFavorite" asp-route-productId="@item.ProductId" class="like" style="color:red">
+
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="AddToFavorite" asp-route-productId="@item.ProductId" class="like">
+
+                                            <i class="lni lni-heart"></i>
+                                        </a>
+                                    }
+
+
+                                    <a asp-action="AddToCart" asp-route-productId="@item.ProductId" class="like">
+                                        <i class="lni lni-cart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Grid -->
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+    $(".ratingStar").hover(function () {
+        $(".ratingStar").addClass("far").removeClass("fas");
+        $(this).addClass("fas").removeClass("far");
+        $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+
+    });
+
+    function rate(x, y) {
+        $(".ratingStar").hover(function () {
+
+            var starValue = $(this).attr("data-value");
+            $("#rating").val(starValue);
+
+               $.ajax({
+               type: "POST",
+               url: "@Url.Action("Rate")",
+               data: { PrId: x, UsId: y, rate: starValue },
+               dataType: "text",
+                    success: function () {
+                        window.location.href = "@Url.Action("Index")";
+                    },
+                    error: function () {
+                        window.location.href = "@Url.Action("Index")";
+                    }
+                        });
+
+        });
+
+
+    };
+    </script>
+}
+<!-- /End Items Grid Area -->

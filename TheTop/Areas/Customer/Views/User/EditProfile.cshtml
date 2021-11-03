@@ -1,0 +1,202 @@
+﻿@model Users
+@{
+    ViewData["Title"] = "EditProfile";
+    Layout = "~/Views/Shared/_Customer.cshtml";
+}
+<!--==================================
+=            User Profile            =
+===================================-->
+<!-- Start Header Area -->
+<header class="header navbar-area">
+    <!-- Start Header Middle -->
+    <div class="header-middle" style="padding:0;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-7">
+                    <!-- Start Header Logo -->
+                    <a class="navbar-brand" >
+                        <img src="~/Images/LogoWithName.png" alt="Logo">
+                    </a>
+                    <!-- End Header Logo -->
+                </div>
+                <div class="col-lg-6 col-md-3 col-7"
+                     id="navbarSupportedContent">
+                    <ul id="nav" class="navbar-nav ms-auto" style="flex-direction: row !important;">
+                        <li class="nav-item">
+                            <a asp-action="Index"
+                               aria-label="Toggle navigation">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index"
+                            aria-label="Toggle navigation">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index"
+                               aria-label="Toggle navigation">Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-2 col-5 ">
+                    <div class="navbar-cart">
+                        <div class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="@Model.UserPhoto" class="avatar" style="height: 30px;width: 30px;border-radius: 50%;" alt="Avatar"> @Model.UsarName  <b class="caret"></b></a>
+                            <div class="dropdown-menu">
+                                <a asp-action="MyAds" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                                <a asp-action="EditProfile" class="dropdown-item"><i class="fa fa-sliders"></i> Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-controller="Home" asp-action="Home" class="dropdown-item"><i class="material-icons"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Middle -->
+</header>
+<!-- End Header Area -->
+<section class="user-profile section mt-200">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-lg-4 offset-lg-0">
+                <div class="sidebar">
+                    <!-- User Widget -->
+                    <div class="widget user-dashboard-profile">
+                        <!-- User Image -->
+                        <div class="profile-thumb">
+                            <img src="@Model.UserPhoto"
+                                 alt=""
+                                 class="rounded-circle" />
+                        </div>
+                        <!-- User Name -->
+                        <h5 class="text-center">@Model.UsarName</h5>
+                        <p>Joined @Model.CreatedAt.ToString("dd MMMM yyyy")</p>
+                    </div>
+                    <!-- Dashboard Links -->
+                    <div class="widget user-dashboard-menu">
+                        <ul>
+                            <li>
+                                <a asp-action="MyAds">
+                                    <i class="fa fa-user"></i> My Ads
+                                    <span>@ViewBag.MyAds</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a asp-action="Favorite">
+                                    <i class="fa fa-bookmark-o"></i> Favourite Ads
+                                    <span>@ViewBag.Facourite</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="Index"><i class="fa fa-cog"></i> Logout</a>
+                            </li>
+                            <li>
+                                <a href="delete-account.html"><i class="fa fa-power-off"></i>Delete Account</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
+                <!-- Edit Personal Info -->
+
+                <div class="widget personal-info">
+                    <h3 class="widget-header user">Edit Personal Information</h3>
+                    <form asp-action="EditPersonal" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <p class="text-success">@ViewBag.Personal</p>
+
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="UserPhoto" />
+                        <!-- First Name -->
+                        <div class="form-group">
+                            <label for="first-name">Name</label>
+                            <input type="text" class="form-control" asp-for="UsarName" />
+
+                        </div>
+                        <!-- Last Name -->
+                        <div class="form-group">
+                            <label for="last-name">Address</label>
+                            <input type="text" class="form-control" asp-for="Address" />
+
+                        </div>
+                        <!-- File chooser -->
+                        <div class="form-group choose-file">
+                            <i class="fa fa-user text-center"></i>
+                            <input type="file" class="form-control-file d-inline" asp-for="UserPhoto" style="background: none;width: auto;">
+                        </div>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-transparent" style="color: #5672f9;border: 1px solid #5672f9;">
+                            Save My Changes
+                        </button>
+                    </form>
+                </div>
+                <!-- Change Password -->
+                <div class="widget change-password">
+                    <h3 class="widget-header user">Edit Password</h3>
+                    <form asp-action="EditPassword" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <p class="text-danger">@ViewBag.error</p>
+
+                        <!-- Current Password -->
+                        <input type="hidden" asp-for="UserId" />
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   asp-for="Password" />
+                            <span class="text-danger" asp-validation-for="Password"></span>
+
+                        </div>
+                        <!-- New Password -->
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   name="newpassword" />
+                        </div>
+                        <!-- Confirm New Password -->
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   name="confirmpassword" />
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-transparent" style="color: #5672f9;border: 1px solid #5672f9; " id="pass">
+                            Change Password
+                        </button>
+                    </form>
+                </div>
+                <!-- Change Email Address -->
+                <div class="widget change-email mb-0">
+                    <h3 class="widget-header user">Edit Email Address</h3>
+                    <form asp-action="EditEmail" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <p class="text-success">@ViewBag.Email </p>
+
+                        <input type="hidden" asp-for="UserId" />
+
+                        <!-- Current Password -->
+                        <div class="form-group">
+                            <label for="current-email">Current Email</label>
+                            <input type="email" class="form-control" asp-for="Email" />
+
+                        </div>
+                        <!-- New email -->
+                        <div class="form-group">
+                            <label for="new-email">New email</label>
+                            <input type="email" class="form-control" name="newemail" />
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-transparent" style="color: #5672f9; border: 1px solid #5672f9;">Change email</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

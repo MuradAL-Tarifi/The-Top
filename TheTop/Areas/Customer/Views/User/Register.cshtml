@@ -1,0 +1,76 @@
+﻿@model Users
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LoginAndRegister.cshtml";
+}
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto" style="
+    padding-top: 8rem!important;
+">
+    <div class="card card0 border-0">
+        <div class="row d-flex">
+            <div class="col-lg-6">
+                <div class="card1 pb-5">
+                    <div class="row"> <img src="~/Images/LogoWithName.png" class="logo"> </div>
+                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" class="image"> </div>
+                </div>
+            </div>
+            
+                <div class="col-lg-6">
+
+                    <div class="card2 card border-0 px-4 py-5">
+                        <form method="post" enctype="multipart/form-data" asp-action="Register">
+
+                            <div class="row px-3 mb-4">
+                                <div class="line" style="width: 35%;margin-top: 25px;"></div>
+                                <small class="or text-center" style="font-size: 35px;width: 30%;">Register</small>
+                                <div class="line" style="width: 35%;margin-top: 25px;"></div>
+
+                            </div>
+                            <div class="alert alert-danger">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </div>
+                            <div class="row px-3">
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">User Name</h6>
+                                </label> <input class="mb-4" asp-for="UsarName" required type="text" as placeholder="Enter a User Name" autocomplete="off">
+                                <span asp-validation-for="UsarName" class="text-danger" ></span>
+
+                            </div>
+                            <div class="row px-3">
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Password</h6>
+                                </label> <input type="password" asp-for="Password" required placeholder="Enter password" autocomplete="off">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+
+                            </div>
+                            <div class="row px-3">
+                                <label class="mb-1 pt-3">
+                                    <h6 class="mb-0 text-sm">Email Address</h6>
+                                </label> <input class="mb-4" type="text" asp-for="Email" required placeholder="Enter a valid Email Address" autocomplete="off">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+                            <div class="row px-3">
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Address</h6>
+                                </label> <input type="text" asp-for="Address" placeholder="Enter a Address" autocomplete="off">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+
+                            </div>
+                            <div class="row px-3 pt-3">
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Personal Picture</h6>
+                                </label> <input type="file" name="photo">
+                            </div>
+
+                            <div class="row mb-3 px-3 pt-3"> <button type="submit" class="btn btn-blue bg-blue text-center ">Register</button> </div>
+                            <div class="row mb-4 px-3"> <small class="font-weight-bold">I have an account? <a class="text-danger" asp-action="Login">Sign in</a></small> </div>
+                        </form>
+                    </div>
+                </div>
+            
+
+        </div>
+    </div>
+</div>
+

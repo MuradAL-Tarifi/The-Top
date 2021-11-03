@@ -1,0 +1,130 @@
+﻿@model Users
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="wrapper">
+    <div class="sidebar"
+         data-color="purple"
+         data-background-color="black"
+         data-image="../assets/img/sidebar-2.jpg">
+
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+
+        <div class="logo">
+            <a class="simple-text logo-normal"> Admin Panel </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item ">
+                    <a class="nav-link" asp-action="Index" asp-controller="Admin">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="User">
+                        <i class="material-icons">person</i>
+                        <p>Users List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Employee">
+                        <i class="material-icons">content_paste</i>
+                        <p>Employees List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Sales" asp-controller="Admin">
+                        <i class="material-icons">content_paste</i>
+                        <p>Purchases List</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" asp-action="Testimonials" asp-controller="Admin">
+                        <i class="material-icons">content_paste</i>
+                        <p>Testimonial List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Home" asp-controller="Home" asp-area="Customer">
+                        <i class="material-icons">logout</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h4 class="card-title">Edit User</h4>
+                            </div>
+                            <div class="card-body">
+                                <form asp-action="Edit">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden"  asp-for="UserId" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="UsarName" class="bmd-label-floating"></label>
+                                                <input asp-for="UsarName" class="form-control" autocomplete="off"  required />
+                                                <span asp-validation-for="UsarName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Password" class="bmd-label-floating"></label>
+                                                <input asp-for="Password" class="form-control" autocomplete="off"  required />
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Email" class="bmd-label-floating"></label>
+                                                <input asp-for="Email" class="form-control" autocomplete="off"  required />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Address" class="bmd-label-floating"></label>
+                                                <input asp-for="Address" class="form-control" autocomplete="off"  required />
+                                                <span asp-validation-for="Address" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label asp-for="RoleId" class="bmd-label-floating"></label>
+                                                <select asp-for="RoleId" class="form-control"   asp-items="ViewBag.RoleId" style="background-color: #202940"></select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button  type="submit" class="btn btn-primary pull-right ml-3">
+                                        Edit User
+                                    </button>
+                                    <a asp-action="Index" class="btn btn-primary pull-right">Back to List</a>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

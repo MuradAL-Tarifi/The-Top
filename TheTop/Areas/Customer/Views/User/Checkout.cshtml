@@ -1,0 +1,172 @@
+﻿@model TheTop.Models.ViewModel.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Customer.cshtml";
+}
+<!-- Start Header Area -->
+<header class="header navbar-area">
+    <!-- Start Header Middle -->
+    <div class="header-middle" style="padding:0;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-7">
+                    <!-- Start Header Logo -->
+                    <a class="navbar-brand">
+                        <img src="~/Images/LogoWithName.png" alt="Logo">
+                    </a>
+                    <!-- End Header Logo -->
+                </div>
+                <div class="col-lg-6 col-md-3 col-7"
+                     id="navbarSupportedContent">
+                    <ul id="nav" class="navbar-nav ms-auto" style="flex-direction: row !important;">
+                        <li class="nav-item">
+                            <a asp-action="Index"
+                               aria-label="Toggle navigation">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index"
+                               aria-label="Toggle navigation">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index"
+                               aria-label="Toggle navigation">Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-2 col-5 ">
+                    <div class="navbar-cart">
+                        <div class="nav-item dropdown">
+
+                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="@Model.Users.UserPhoto" class="avatar" style="height: 30px;width: 30px;border-radius: 50%;" alt="Avatar">@Model.Users.UsarName  <b class="caret"></b></a>
+                            <div class="dropdown-menu">
+                                <a asp-action="MyAds" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                                <a asp-action="EditProfile" class="dropdown-item"><i class="fa fa-sliders"></i> Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-controller="Home" asp-action="Home" class="dropdown-item"><i class="material-icons"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Middle -->
+</header>
+<!-- End Header Area -->
+<div class="page-wrapper mt-100">
+    <div class="checkout shopping">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="block">
+                        <h4 class="widget-title">Payment Method</h4>
+                        <p>Credit Cart Details (Secure payment)</p>
+                        <div class="checkout-product-details">
+                            <div class="payment">
+                                <div class="card-details">
+                                    <form class="checkout-form" method="post" asp-action="Checkout">
+                                            <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label for="card-number">Paymnet Type <span class="required">*</span></label>
+                                            <input name="PaymnetType" class="form-control" type="text" placeholder="Zain Cash" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="card-number">Card Number <span class="required">*</span></label>
+                                            <input name="cardnumber" class="form-control" type="tel" placeholder="•••• •••• •••• ••••" required>
+                                        </div>
+                                        <div class="form-group half-width padding-right">
+                                            <label for="card-expiry">Expiry (MM/YY) <span class="required">*</span></label>
+                                            <input name="expiry" class="form-control" type="tel" placeholder="MM / YY" required>
+                                        </div>
+                                        <div class="form-group half-width padding-left">
+                                            <label for="card-cvc">Card Code <span class="required">*</span></label>
+                                            <input name="cardcode" class="form-control" type="tel" maxlength="4" placeholder="CVC" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-main mt-20" style="padding: 10px; color: white; background-color: #0056b3;">Place Order</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-checkout-details">
+                        <div class="block">
+                            <h4 class="widget-title">Order Summary</h4>
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <div class="media product-card">
+                                    <a class="pull-left" href="product-single.html">
+                                        <img class="media-object" src="@item.Cartphoto" alt="Image" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="product-single.html">@item.CartName</a></h4>
+                                        <p class="price">$@item.CartPrice</p>
+                                    </div>
+                                </div>
+                            }
+                            <div class="discount-code">
+                                <p>Have a discount ? <a data-toggle="modal" data-target="#coupon-modal" href="#!" style="font-weight:bold">enter it here</a></p>
+                            </div>
+
+                            @if (ViewBag.TotalDiscount == null)
+                            {
+                                <ul class="summary-prices">
+                                    <li>
+                                        <span>Subtotal:</span>
+                                        <span class="price">$@ViewBag.Total</span>
+                                    </li>
+                                    <li>
+                                        <span>Shipping:</span>
+                                        <span>Free</span>
+                                    </li>
+                                </ul>
+                                <div class="summary-total">
+                                    <span>Total</span>
+                                    <span>$@ViewBag.Total</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <ul class="summary-prices">
+                                    <li>
+                                        <span>Subtotal:</span>
+                                        <span class="price">$@ViewBag.Total</span>
+                                    </li>
+                                    <li>
+                                        <span>Shipping:</span>
+                                        <span>Free</span>
+                                    </li>
+                                    <li>
+                                        <span>Discount:</span>
+                                        <span>$@ViewBag.TotalDiscount</span>
+                                    </li>
+                                </ul>
+                                <div class="summary-total">
+                                    <span>Total</span>
+                                    <span>$@ViewBag.TotalAfterDiscount</span>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form method="post" asp-action="applyCoupon">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="Name" placeholder="Enter Coupon Code">
+                    </div>
+                    <button type="submit" style="padding: 10px; color: white; background-color: #0056b3;" class="btn btn-main">Apply Coupon</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

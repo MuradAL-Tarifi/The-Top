@@ -1,0 +1,109 @@
+﻿@model Challenge
+@{
+    ViewData["Title"] = "CreateEmployee";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="wrapper">
+    <div class="sidebar"
+         data-color="purple"
+         data-background-color="black"
+         data-image="../assets/img/sidebar-2.jpg">
+        <div class="logo">
+            <a class="simple-text logo-normal"> Admin Panel </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Admin">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="User">
+                        <i class="material-icons">person</i>
+                        <p>Users List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Employee">
+                        <i class="material-icons">content_paste</i>
+                        <p>Employees List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Sales" asp-controller="Admin">
+                        <i class="material-icons">content_paste</i>
+                        <p>Purchases List</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" asp-action="Testimonials" asp-controller="Admin">
+                        <i class="material-icons">content_paste</i>
+                        <p>Testimonial List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Home" asp-controller="Home" asp-area="Customer">
+                        <i class="material-icons">logout</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h4 class="card-title">Create Task</h4>
+                            </div>
+                            <div class="card-body">
+                                <form asp-action="Create" method="post">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label asp-for="Category" class="bmd-label-floating"></label>
+                                                <select asp-for="Category" class="form-control">
+                                                    <option value="Bug" style="background-color: #1a2035">
+                                                        Bug
+                                                    </option>
+                                                    <option value="Website" style="background-color: #1a2035">
+                                                        Website
+                                                    </option>
+                                                    <option value="Server" style="background-color: #1a2035">
+                                                        Server
+                                                    </option>
+                                                </select>
+                                                <span asp-validation-for="Category" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label asp-for="Description" class="bmd-label-floating"></label>
+                                                <input asp-for="Description" autocomplete="off" required class="form-control" />
+                                                <span asp-validation-for="Description" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button asp-action="Create" type="submit" class="btn btn-primary pull-right ml-3">
+                                        Create Task
+                                    </button>
+                                    <a asp-action="Index" class="btn btn-primary pull-right">Back to List</a>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

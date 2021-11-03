@@ -1,0 +1,114 @@
+﻿@model Employee
+
+@{
+    ViewData["Title"] = "CreateEmployee";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="wrapper">
+    <div class="sidebar"
+         data-color="purple"
+         data-background-color="black"
+         data-image="../assets/img/sidebar-2.jpg">
+        <div class="logo">
+            <a class="simple-text logo-normal"> Admin Panel </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item ">
+                    <a class="nav-link" asp-action="Index" asp-controller="Admin">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="User">
+                        <i class="material-icons">person</i>
+                        <p>Users List</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Employee">
+                        <i class="material-icons">content_paste</i>
+                        <p>Employees List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Sales" asp-controller="Admin">
+                        <i class="material-icons">content_paste</i>
+                        <p>Purchases List</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" asp-action="Testimonials" asp-controller="Admin">
+                        <i class="material-icons">content_paste</i>
+                        <p>Testimonial List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Home" asp-controller="Home" asp-area="Customer">
+                        <i class="material-icons">logout</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h4 class="card-title">Create Employee</h4>
+                            </div>
+                            <div class="card-body">
+                                <form asp-action="Create" method="post">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="UserId" class="bmd-label-floating"></label>
+                                                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" style="background-color: #202940"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Salary" class="bmd-label-floating"></label>
+                                                <input asp-for="Salary" class="form-control" autocomplete="off" required />
+                                                <span asp-validation-for="Salary" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Discounts" class="bmd-label-floating"></label>
+                                                <input asp-for="Discounts" class="form-control" autocomplete="off" />
+                                                <span asp-validation-for="Discounts" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="DiscountsDescription" class="bmd-label-floating"></label>
+                                                <input asp-for="DiscountsDescription" class="form-control" autocomplete="off" />
+                                                <span asp-validation-for="DiscountsDescription" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button asp-action="Create" type="submit" class="btn btn-primary pull-right ml-3">
+                                        Create User
+                                    </button>
+                                    <a asp-action="Index" class="btn btn-primary pull-right">Back to List</a>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,242 @@
+﻿@model TheTop.Models.ViewModel.EmployeeViewModer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="wrapper">
+    <div class="sidebar"
+         data-color="purple"
+         data-background-color="black"
+         data-image="~/assets/img/sidebar-2.jpg">
+        <div class="logo">
+            <a class="simple-text logo-normal"> @Model.Users.UsarName</a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Home">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Logout">
+                        <i class="material-icons">dashboard</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">content_copy</i>
+                                </div>
+                                <p class="card-category">My Salary </p>
+                                <h3 class="card-title">
+                                    $@Model.Employee.Salary
+                                </h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons text-warning">warning</i>
+                                    <a class="warning-link" asp-action="SlipSalary">Click to get a sales report for the last month.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <span class="nav-tabs-title">Challenges :</span>
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active"
+                                                   href="#Bug"
+                                                   data-toggle="tab">
+                                                    <i class="material-icons">bug_report</i> Bugs
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   href="#Website"
+                                                   data-toggle="tab">
+                                                    <i class="material-icons">code</i> Website
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   href="#Server"
+                                                   data-toggle="tab">
+                                                    <i class="material-icons">cloud</i> Server
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="Bug">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Challenge Description</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Challenge.Where(m => m.Category == "Bug" && m.IsActive == true))
+                                                {
+                                                    <tr>
+                                                        <td width="90%">
+                                                            @item.Description
+                                                        </td>
+                                                        <td class="td-actions text-right" width="20%">
+                                                            <a asp-action="Done" class="btn btn-white btn-link btn-sm" rel="tooltip"
+                                                               title="Done Task" asp-route-id="@item.TaskId">
+                                                                <i class="material-icons" style="font-size:38px">task</i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="Website">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Challenge Description</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Challenge.Where(m => m.Category == "Website" && m.IsActive == true))
+                                                {
+                                                    <tr>
+                                                        <td width="90%">
+                                                            @item.Description
+                                                        </td>
+                                                        <td class="td-actions text-right" width="20%">
+                                                            <a asp-action="Done" class="btn btn-white btn-link btn-sm" rel="tooltip"
+                                                               title="Done Task" asp-route-id="@item.TaskId">
+                                                                <i class="material-icons" style="font-size:38px">task</i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="Server">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Challenge Description</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Challenge.Where(m => m.Category == "Server" && m.IsActive == true))
+                                                {
+                                                    <tr>
+                                                        <td width="90%">
+                                                            @item.Description
+                                                        </td>
+                                                        <td class="td-actions text-right" width="20%">
+                                                            <a asp-action="Done" class="btn btn-white btn-link btn-sm" rel="tooltip"
+                                                               title="Done Task" asp-route-id="@item.TaskId">
+                                                                <i class="material-icons" style="font-size:38px">task</i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-tabs card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <span class="nav-tabs-title">Tasks:</span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Task Description</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.EmployeeTasks)
+                                                {
+                                                    <tr>
+                                                        <td width="90%">
+                                                            @item.Description
+                                                        </td>
+                                                        <td class="td-actions text-right" width="20%">
+                                                            <a asp-action="DoneTask" class="btn btn-white btn-link btn-sm" rel="tooltip"
+                                                               title="Done Task" asp-route-id="@item.Id">
+                                                                <i class="material-icons" style="font-size:38px">task</i>
+                                                            </a>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

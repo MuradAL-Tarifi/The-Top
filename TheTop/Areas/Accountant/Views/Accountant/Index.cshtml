@@ -1,0 +1,234 @@
+﻿@model TheTop.Models.ViewModel.AccountantViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+<div class="wrapper">
+    <div class="sidebar"
+         data-color="purple"
+         data-background-color="black"
+         data-image="~/assets/img/sidebar-2.jpg">
+        <div class="logo">
+            <a class="simple-text logo-normal"> Accountant Panel </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Accountant">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Home" asp-controller="Home" asp-area="Customer">
+                        <i class="material-icons">logout</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-warning card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">content_copy</i>
+                                </div>
+                                <p class="card-category">Monthly employee salaries</p>
+                                <h3 class="card-title">
+                                    @{
+                                        var year = Convert.ToInt32(DateTime.Now.Month.ToString());
+                                        year--;
+                                        string newYear = year.ToString();
+                                    }
+                                    $@Model.Employees.Where(m => m.Month == DateTime.Now.Month.ToString()).Sum(m => m.Salary)
+                                </h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons text-warning">warning</i>
+                                    <a asp-action="monthEmp" asp-route-month="@newYear" class="warning-link">Click to get a employee salaries report for the last month.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-success card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">store</i>
+                                </div>
+                                <p class="card-category">Annual employee salaries</p>
+                                <h3 class="card-title">
+                                    @{ 
+                                        var year1 = Convert.ToInt32(DateTime.Now.Year.ToString());
+                                        year1--;
+                                       string newYear1 = year1.ToString();
+                                    }
+                                    $@Model.Employees.Where(m => m.Year == DateTime.Now.Year.ToString()).Sum(m => m.Salary)
+                                </h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats text-success">
+                                    <i class="material-icons">date_range</i>
+                                    <a asp-action="YearEmp"  asp-route-Year="@newYear1" class="text-success">Click to get a employee salaries report for the last year.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-header card-header-danger card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">store</i>
+                                </div>
+                                <p class="card-category">Discounts employee salaries</p>
+                                <h3 class="card-title">
+                                    $@Model.Employees.Where(m => m.Year == DateTime.Now.Year.ToString()).Sum(m => m.Discounts)
+                                </h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats text-danger">
+                                    <i class="material-icons">date_range</i>
+                                    <a class="text-danger">Annual discounts for employees.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h2 class="card-title">Employees List</h2>
+                                <p class="card-category text-right">
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    @if (Model.Employees.Count() == 0)
+                                    {
+                                        <p class="text-danger">No Employees ... </p>
+                                    }
+                                    else
+                                    {
+                                        <table class="table">
+                                            <thead class="text-primary">
+                                            <th>
+                                                @{
+                                                    var User = Model.Users.FirstOrDefault();
+                                                    var Emps = Model.Employees.FirstOrDefault();
+                                                }
+
+                                                 Employee Name
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => Emps.Salary)
+                                            </th>
+
+                                            <th>
+                                                @Html.DisplayNameFor(model => Emps.Discounts)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => Emps.DiscountsDescription)
+                                            </th>
+
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Employees)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(m => item.User.UsarName)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Salary)
+                                                        </td>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Discounts)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.DiscountsDescription)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h2 class="card-title">Customer List</h2>
+                                <p class="card-category text-right">
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    @if (Model.Users.Count() == 0)
+                                    {
+                                        <p class="text-danger">No Employees ... </p>
+                                    }
+                                    else
+                                    {
+                                        <table class="table">
+                                            <thead class="text-primary">
+                                            <th>
+                                                @{
+                                                    var User = Model.Users.FirstOrDefault();
+                                                }
+
+                                                Customer Name
+
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => User.Address)
+                                            </th>
+
+                                            <th>
+                                                @Html.DisplayNameFor(model => User.Email)
+                                            </th>
+
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Users.Where(m => m.RoleId == 4))
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(m => item.UsarName)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Address)
+                                                        </td>
+
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Email)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

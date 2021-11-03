@@ -1,0 +1,167 @@
+﻿@model TheTop.Models.ViewModel.IndexViewModel
+@{
+    ViewData["Title"] = "PublicMessage";
+    Layout = "~/Views/Shared/_Customer.cshtml";
+}
+
+<!-- Start Header Area -->
+<header class="header navbar-area">
+    <!-- Start Header Middle -->
+    <div class="header-middle" style="padding:0;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-7">
+                    <!-- Start Header Logo -->
+                    <a class="navbar-brand"  style="height:auto">
+                        <img src="~/Images/LogoWithName.png" alt="Logo">
+                    </a>
+                    <!-- End Header Logo -->
+                </div>
+                <div class="col-lg-6 col-md-3 col-7"
+                     id="navbarSupportedContent">
+                    <ul id="nav" class="navbar-nav ms-auto" style="flex-direction: row !important;">
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                               aria-label="Toggle navigation">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                               aria-label="Toggle navigation">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                               aria-label="Toggle navigation">Products</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-2 col-5 ">
+                    <div class="navbar-cart">
+                        <div class="wishlist">
+                            <a asp-action="Message">
+                                <i class="lni lni-facebook-messenger"></i>
+                            </a>
+                        </div>
+                        <div class="wishlist">
+                            <a asp-action="Favorite">
+                                <i class="lni lni-heart"></i>
+                                <span class="total-items">@Model.FavoriteProducts.Where(p => p.UserId == Model.Users.UserId).Count()</span>
+                            </a>
+                        </div>
+                        <div class="cart-items ">
+                            <a href="javascript:void(0)" class="main-btn">
+                                <i class="lni lni-cart"></i>
+                                <span class="total-items">@Model.CartItems.Count()</span>
+                            </a>
+                            <!-- Shopping Item -->
+                            <div class="shopping-item">
+                                <div class="dropdown-cart-header">
+                                    <span>@Model.CartItems.Count() Items</span>
+                                </div>
+                                <ul class="shopping-list">
+
+                                    @foreach (var item in Model.CartItems)
+                                    {
+
+
+                                        <li>
+                                            <a asp-action="RemoveFromCart" asp-route-id="@item.Id" class="remove" title="Remove this item">
+                                                <i class="lni lni-close"></i>
+                                            </a>
+                                            <div class="cart-img-head">
+                                                <a class="cart-img" href="product-details.html">
+                                                    <img src="@item.Cartphoto" style="width: 100%;height: 100%;">
+                                                </a>
+                                            </div>
+
+                                            <div class="content">
+                                                <h4>
+                                                    <a href="product-details.html">
+                                                        @item.CartName
+                                                    </a>
+                                                </h4>
+                                                <p class="quantity"><span class="amount">$@item.CartPrice</span></p>
+                                            </div>
+                                        </li>
+                                    }
+
+
+                                </ul>
+                                <div class="bottom">
+                                    <div class="total">
+                                        <span>Total</span>
+                                        <span class="total-amount">$@Model.CartItems.Select(m => m.CartPrice).Sum()</span>
+                                    </div>
+                                    <div class="button">
+                                        <a asp-action="Checkout" class="btn animate">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ End Shopping Item -->
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action" style="font-size: 19px;"><img src="@Model.Users.UserPhoto" id="photo" class="avatar" style="height: 30px;width: 30px;border-radius: 50%;" alt="Avatar"> @Model.Users.UsarName </a>
+                            <div class="dropdown-menu">
+                                <a asp-action="MyAds" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                                <a asp-action="EditProfile" class="dropdown-item"><i class="fa fa-sliders"></i> Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-controller="Home" asp-action="Home" class="dropdown-item"><i class="material-icons"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Middle -->
+</header>
+<!-- End Header Area -->
+<div class="section-title mt-200">
+    <h2 class="wow fadeInUp" data-wow-delay=".4s">Public Chat</h2>
+</div>
+<div class="container mt-100 mb-100" style="background-color:gray">
+    <div class="content container-fluid bootstrap snippets bootdey" style="padding:24px">
+        <div class="row row-broken">
+            <div class="col-sm-12 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
+                <div class="col-inside-lg decor-default">
+                    <div class="chat-body">
+                        <h6>Public Chat</h6>
+                        <div id="list">
+
+                            @*<div class="answer left">
+                                <div class="avatar">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="User name">
+                                </div>
+                                <div class="name">Alexander Herthic</div>
+                                <div class="text">
+                                    Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adipisicing elit Lorem ipsum dolor amet, consectetur adiping elit
+                                </div>
+                                <div class="time">&ensp;</div>
+                            </div>*@
+
+
+                        </div>
+
+
+
+                        <div class="answer-add">
+
+                            <input type="hidden" value="@Model.Users.UserId" id="txtId">
+
+                            <input type="hidden" value="@Model.Users.UsarName" id="txtUser">
+                            <input placeholder="Write a message" id="txtMessage" style=" box-shadow: none;">
+                            <input class="answer-btn answer-btn-1" value="Send" type="submit" id="btnSend" style=" box-shadow: none;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".chat").niceScroll();
+    })
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>
